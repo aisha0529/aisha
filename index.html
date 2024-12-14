@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inside My World</title>
+    <link rel="stylesheet" href="indexstyle.css">
+</head>
+<body>
+<header>
+    <div id="clock"></div>
+
+    <div class="dropdown">
+        <button>☰ Menu</button>
+        <div class="dropdown-content">
+            <a href="profile.html">Profile</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="workexperience.html">Work Experience</a>
+            <a href="education.html">Education</a>
+            <a href="myskills.html">Skills</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </div>
+          
+    <div class="audio-container">
+        <div class="circle" id="circle">
+            <img src="illit.jpg" alt="Audio Image" id="audio-image">
+        </div>
+        <audio id="audio" controls autoplay>
+            <source src="illit.mp3" type="audio/ogg">
+            Your browser does not support the audio element.
+        </audio>
+        <div class="audio-buttons">
+            <button id="prev">Previous</button>
+            <button id="next">Next</button>
+        </div>
+    </div>
+    
+    <div class="header-center">
+        <h1>INSIDE MY WORLD</h1>
+        <h2>Welcome to my website! Explore, learn, and connect with me</h2>
+    </div>
+</header>
+
+<section class="hero"></section>
+
+<footer>
+    &copy; 2024 Aisha. All Rights Reserved.
+</footer>
+
+<script>
+    function updateClock() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = now.getFullYear();
+        const time = hours + ":" + minutes + ":" + seconds;
+        const date = day + "/" + month + "/" + year;
+        document.getElementById('clock').textContent = date + " - " + time;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock(); 
+    
+    const tracks = [
+        { src: "illit.mp3", img: "illit.jpg" },
+        { src: "nj.mp3", img: "nj.jpg" },
+    ];
+
+    let currentTrackIndex = 0;
+
+    const audio = document.getElementById('audio');
+    const circle = document.getElementById('circle');
+    const audioImage = document.getElementById('audio-image');
+    const prevButton = document.getElementById('prev');
+    const nextButton = document.getElementById('next');
+
+    function loadTrack(index) {
+        currentTrackIndex = index;
+        const selectedTrack = tracks[currentTrackIndex];
+        audio.src = selectedTrack.src;
+        audioImage.src = selectedTrack.img;
+        audio.play();
+    }
+
+    prevButton.addEventListener('click', () => {
+        const newIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+        loadTrack(newIndex);
+    });
+
+    nextButton.addEventListener('click', () => {
+        const newIndex = (currentTrackIndex + 1) % tracks.length;
+        loadTrack(newIndex);
+    });
+
+    audio.addEventListener('play', () => {
+        circle.classList.add('rotate');
+    });
+
+    audio.addEventListener('pause', () => {
+        circle.classList.remove('rotate');
+    });
+
+    audio.addEventListener('ended', () => {
+        circle.classList.remove('rotate');
+    });
+</script>
+</body>
+</html>
+
+
+
+
